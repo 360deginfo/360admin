@@ -1,4 +1,4 @@
 @include('layout.section.admin.header') 
 @include('layout.section.admin.sidebar') 
-	@yeild('page')
+	@yield('page')
 @include('layout.section.admin.footer')

@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html class="loading" lang="en" data-textdirection="ltr">
   <head>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
@@ -33,7 +34,7 @@
             </li>
             <li class="nav-item mr-auto">
               <a class="navbar-brand" href="index.html">
-                <img class="brand-logo" alt="stack admin logo" src="assets/images/logo/stack-logo-light.png">
+                <img class="brand-logo" alt="stack admin logo" src="{{ asset('assets/images/logo/stack-logo-light.png') }}">
                 <h2 class="brand-text">Stack</h2>
               </a>
             </li>
@@ -57,17 +58,19 @@
               <li class="dropdown dropdown-user nav-item">
                 <a class="dropdown-toggle nav-link dropdown-user-link" href="#" data-toggle="dropdown">
                   <div class="avatar avatar-online">
-                    <img src="assets/images/portrait/small/avatar-s-1.png" alt="avatar"><i></i>
+                    <img src="{{ asset('assets/images/portrait/small/avatar-s-1.png') }}" alt="avatar"><i></i>
                   </div>
-                  <span class="user-name">John Doe</span>
+                  <span class="user-name">{{ Auth::user()->name }} </span>
                 </a>
                 <div class="dropdown-menu dropdown-menu-right">
-                  <a class="dropdown-item" href="user-profile.html"><i class="feather icon-user"></i> Edit Profile</a>
-                  <a class="dropdown-item" href="email.html"><i class="feather icon-mail"></i> My Inbox</a>
-                  <a class="dropdown-item" href="user-cards.html"><i class="feather icon-check-square"></i> Task</a>
-                  <a class="dropdown-item" href="chat.html"><i class="feather icon-message-square"></i> Chats</a>
+                  @if (Route::has('profile'))
+                  <a class="dropdown-item" href="user-profile.html"><i class="feather icon-user"></i> Edit Profile</a> 
+                  @endif
                   <div class="dropdown-divider"></div>
-                  <a class="dropdown-item" href="login-with-bg-image.html"><i class="feather icon-power"></i> Logout</a>
+                  <a href="javascript:;"  onclick="event.preventDefault();  document.getElementById('logout-form').submit();" class="dropdown-item" href="login-with-bg-image.html"><i class="feather icon-power"></i> Logout</a>
+                  <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                        @csrf
+                  </form>
                 </div>
               </li>
             </ul>

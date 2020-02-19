@@ -17,7 +17,7 @@ trait AuthenticatesUsers
      */
     public function showLoginForm()
     {
-        return view('auth.login');
+        return view('admin.login',['title'=>'Login']);
     }
 
     /**
@@ -171,6 +171,7 @@ trait AuthenticatesUsers
     protected function loggedOut(Request $request)
     {
         //
+        return redirect('admin');
     }
 
     /**
